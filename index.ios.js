@@ -11,24 +11,32 @@ import React, {
   Text,
   View
 } from 'react-native';
-
+import Login from './Login';
 class LoginApp extends Component {
+  constructor(props){
+       super(props);
+       this.state = {
+           isLoggedIn:false
+       }
+   }
   render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    );
-  }
+     if(this.state.isLoggedIn){
+       return (
+           <View style={styles.container}>
+                <Text style={styles.welcome}>
+                </Text>
+           </View>
+       );  
+     } else{
+        return (
+            <Login onLogin={this.onLogin}/>
+        );      
+      }
+    
+  }    
+  onLogin(){
+    console.log('successfully logged in, can show different view');    
+    }
 }
 
 const styles = StyleSheet.create({
