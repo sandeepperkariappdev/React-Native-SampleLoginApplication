@@ -19,10 +19,16 @@ class AppContainer extends Component{
            <TabBarIOS style={styles.container}>
                 <TabBarIOS.Item
                             title="Feed"
-                            selected={this.state.selectedTab == "feed"}                                                                     onPress={() => this.setState({selectedTab:"feed"})}
-                    >
+                            selected={this.state.selectedTab == "feed"}                                                                     onPress={() => this.setState({selectedTab:"feed"})}>
                         <Text style={styles.welcome}>
                             Tab 1
+                        </Text>
+                    </TabBarIOS.Item>
+                    <TabBarIOS.Item
+                            title="Search"
+                            selected={this.state.selectedTab == "search"}                                                                     onPress={() => this.setState({selectedTab:"search"})}>
+                        <Text style={styles.welcome}>
+                            Tab 2
                         </Text>
                     </TabBarIOS.Item>
             </TabBarIOS>
