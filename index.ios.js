@@ -9,23 +9,42 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View
+  View,
+  ActivityIndicatorIOS
 } from 'react-native';
 import Login from './Login';
+import AppContainer from './AppContainer';
+import authService from './AuthService';
 class LoginApp extends Component {
+    componentDidMount(){
+        authService.getAuthInfo((err, authInfo) => {
+            this.setState({
+                isCheckingAuth:false,
+                isLoggedIn:true
+            })
+        });
+    }
   constructor(props){
        super(props);
        this.state = {
-           isLoggedIn:false
+           isLoggedIn:false,
+           isCheckingAuth:true
        }
    }
   render() {
+      if(this.state.isCheckingAuth){
+          return (
+              <View style={styles.container}>
+                    <ActivityIndicatorIOS 
+                            animating={true}
+                                size="large"
+                                style={styles.loader} />
+              </View>
+          );
+      }
      if(this.state.isLoggedIn){
        return (
-           <View style={styles.container}>
-                <Text style={styles.welcome}>
-                </Text>
-           </View>
+           <AppContainer  />
        );  
      } else{
         return (
