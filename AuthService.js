@@ -1,12 +1,45 @@
 import buffer from "buffer";
+import Reactnative from "react-native";
+import _ from "lodash";
+const AsyncStorage = Reactnative.AsyncStorage;
+const authKey = "auth";
+const userkey = "user";
 
 class AuthService {
-    login(cred,cb){
-        
+    
+    getAuthInfo(cb){
+        /*AsyncStorage.multiGet([authKey,userkey],(err,val) => {
+            if(err){
+                return(cb(err));
+            }
+            
+            if(!val){
+                return cb();
+            }
+            
+            var zippedObj = _.zipObject(val);
+            
+            if(!zippedObj[authKey]){
+                return cb();
+            }
+            
+            const authInfo = {
+                headers:{
+                    Authhorization:'Basic'+ zippedObj[authKey]                   
+                },
+                user:JSON.parse(zippedObj[userkey])                
+            }
+            
+            return cb(null,authInfo);
+        });*/
+        return cb(null,"authInfo");
+    }
+    
+    login(cred,cb){        
       var b = new buffer.Buffer(cred.username+':'+cred.password);
       var encodedAuth =  b.toString('base64');
       
-      fetch('https://api.github.com/user',{
+     /* fetch('https://api.github.com/user',{
           headers:{
               'Authhorization':'Basic'+ encodedAuth
           }
@@ -22,11 +55,19 @@ class AuthService {
       }).then((response) => {
           return response.json();
       }).then((results) => {
+          AsyncStorage.multiSet([
+              [authKey,encodedAuth],
+              [userkey,JSON.stringify(results)]
+          ], (err) => {
+              if(err){
+                  throw err;
+              }
+          });
           return cb({success:true});
       }).catch((err) => { 
           console.log(err)
           return cb(err);
-      });
+      });*/
     }
 }
 
