@@ -1,6 +1,9 @@
 import buffer from "buffer";
 import Reactnative from "react-native";
 import _ from "lodash";
+import nativeModules from "NativeModules";
+
+const encoding = nativeModules.Encoding;
 const AsyncStorage = Reactnative.AsyncStorage;
 const authKey = "auth";
 const userkey = "user";
@@ -36,8 +39,13 @@ class AuthService {
     }
     
     login(cred,cb){        
-      var b = new buffer.Buffer(cred.username+':'+cred.password);
-      var encodedAuth =  b.toString('base64');
+        let authStr= cred.username+':'+cred.password;
+        encoding.base64Encode(authStr,(encodedAuthFromObjC) => {
+            console.log(encodedAuthFromObjC);
+            cb(encodedAuthFromObjC)
+        });
+        let b = new buffer.Buffer(cred.username+':'+cred.password);
+        let encodedAuth =  b.toString('base64');
       
      /* fetch('https://api.github.com/user',{
           headers:{

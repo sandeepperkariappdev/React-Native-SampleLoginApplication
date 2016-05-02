@@ -4,9 +4,11 @@ import React, {
   StyleSheet,
   Text,
   View,
-  TabBarIOS
+  TabBarIOS,
+      NavigatorIOS
 } from 'react-native';
-
+import Feed from "./Feed";
+import Search from "./Search";
 class AppContainer extends Component{
      constructor(props){
         super(props); 
@@ -20,16 +22,26 @@ class AppContainer extends Component{
                 <TabBarIOS.Item
                             title="Feed"
                             selected={this.state.selectedTab == "feed"}                                                                     onPress={() => this.setState({selectedTab:"feed"})}>
-                        <Text style={styles.welcome}>
-                            Tab 1
-                        </Text>
+                        <NavigatorIOS
+                                    style={{
+                                           flex:1
+                                          }}
+                                    initialRoute={{
+                                            component:Feed,
+                                            title:"Feed"
+                                           }}></NavigatorIOS>
                     </TabBarIOS.Item>
                     <TabBarIOS.Item
                             title="Search"
-                            selected={this.state.selectedTab == "search"}                                                                     onPress={() => this.setState({selectedTab:"search"})}>
-                        <Text style={styles.welcome}>
-                            Tab 2
-                        </Text>
+                            selected={this.state.selectedTab == "search"}                                       onPress={() => this.setState({selectedTab:"search"})}>
+                        <NavigatorIOS
+                                    style={{
+                                           flex:1
+                                          }}
+                                    initialRoute={{
+                                            component:Search,
+                                            title:"Search"
+                                           }}></NavigatorIOS>
                     </TabBarIOS.Item>
             </TabBarIOS>
        );
