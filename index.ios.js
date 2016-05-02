@@ -17,6 +17,11 @@ import AppContainer from './AppContainer';
 import authService from './AuthService';
 class LoginApp extends Component {
     componentDidMount(){
+        
+        authService.login({
+            username:"sandeep",
+            password:"perkari"
+        },(res)=> console.log(res))
         authService.getAuthInfo((err, authInfo) => {
             this.setState({
                 isCheckingAuth:false,
